@@ -1,0 +1,20 @@
+{
+    "name": "indie.hooman.menu-views",
+    "version": "0.0.1",
+    "unity": "2020.1",
+    "displayName": "MenuView Tools",
+    "description": "You can create and manage menus only by inheritance of MenuView Class.",
+    "keywords": [
+        "Menu",
+        "UI",
+        "Tools"
+    ],
+    "author": {
+        "name": "Hooman Jalalpoor",
+        "email": "Hooman.Jalalpoor@gmail.com",
+        "url": "https://github.com/HoomanJCode"
+    },
+    "dependencies": {
+        "com.unity.modules.unitywebrequest": "1.0.0"
+    }
+}
