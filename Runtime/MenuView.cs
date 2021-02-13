@@ -8,6 +8,7 @@ using UnityEngine;
 // ReSharper disable VirtualMemberNeverOverridden.Global
 // ReSharper disable UnusedMember.Global
 
+// ReSharper disable once CheckNamespace
 namespace MenuViews
 {
     public abstract class MenuView : MonoBehaviour
@@ -104,7 +105,7 @@ namespace MenuViews
         private static void ChangeCurrentView(Object toMenuType, int layer)
         {
             var currentView = GetCurrentView(layer);
-            if (currentView.gameObject != toMenuType)
+            if (currentView!=null && currentView.gameObject != toMenuType)
             {
                 if (!LastViews.ContainsKey(layer)) LastViews.Add(layer, currentView);
                 LastViews[layer] = currentView;
