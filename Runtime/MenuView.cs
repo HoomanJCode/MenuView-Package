@@ -120,7 +120,7 @@ namespace MenuViews
                     foreach (var fView in view.Children)
                         if (fView.homePageOfParent && fView.Parent == view)
                         {
-                            ChangeCurrentView(fView.gameObject, fView.Layer);
+                            fView.ChangeToThisView();
                             break;
                         }
                 }
