@@ -1,6 +1,6 @@
 {
     "name": "indie.hoomanjcode.menu-views",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "unity": "2020.1",
     "displayName": "MenuView Tools",
     "description": "You can create and manage menus only by inheritance of MenuView Class.",
