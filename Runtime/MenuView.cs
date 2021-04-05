@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 // ReSharper disable ReturnTypeCanBeEnumerable.Global
 // ReSharper disable MemberCanBePrivate.Global
@@ -128,14 +130,24 @@ namespace MenuViews
 
         public static void ChangeCurrentView<TMenuScript>() where TMenuScript : MenuView
         {
+            ChangeCurrentView(typeof(TMenuScript));
+        }
+        public static void ChangeCurrentView(Type targetViewType)
+        {
+            if(!targetViewType.IsSubclassOf(typeof(MenuView)))
+            {
+                Debug.LogError($"Type: {targetViewType.Name} is not a menu view.");
+                return;
+            }
+
             foreach (var view in _views)
             {
-                if (view.GetType() != typeof(TMenuScript)) continue;
+                if (view.GetType() != targetViewType) continue;
                 view.ChangeToThisView();
                 return;
             }
 
-            Debug.LogError($"Not found {typeof(TMenuScript).Name} view.");
+            Debug.LogError($"Not found {targetViewType.Name} view.");
         }
 
 
@@ -158,14 +170,24 @@ namespace MenuViews
 
         public static void CloseView<TMenuScript>() where TMenuScript : MenuView
         {
+            CloseView(typeof(TMenuScript));
+        }
+        public static void CloseView(Type targetViewType)
+        {
+            if(!targetViewType.IsSubclassOf(typeof(MenuView)))
+            {
+                Debug.LogError($"Type: {targetViewType.Name} is not a menu view.");
+                return;
+            }
+            
             foreach (var view in _views)
             {
-                if (view.GetType() != typeof(TMenuScript)) continue;
+                if (view.GetType() != targetViewType) continue;
                 view.CloseThisView();
                 return;
             }
 
-            Debug.LogError($"Not found {typeof(TMenuScript).Name} view.");
+            Debug.LogError($"Not found {targetViewType.Name} view.");
         }
 
         public static TMenuScript GetView<TMenuScript>() where TMenuScript : MenuView
