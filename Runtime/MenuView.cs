@@ -16,6 +16,7 @@ namespace MenuViews
     public abstract class MenuView : MonoBehaviour
     {
         private static MenuView[] _views;
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         private static readonly Dictionary<int, MenuView> LastViews = new Dictionary<int, MenuView>();
         [SerializeField] private bool homePageOfParent;
         private MenuView[] _children;
@@ -32,6 +33,7 @@ namespace MenuViews
                 // ReSharper disable once InvertIf
                 if (_children == null)
                 {
+                    // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
                     var menuViews = GetComponentsInChildren<MenuView>(true).ToList();
                     menuViews.Remove(this);
                     _children = menuViews.ToArray();
@@ -49,6 +51,7 @@ namespace MenuViews
                 var obj = transform.parent;
                 while (obj.parent)
                 {
+                    // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
                     _parent = obj.GetComponent<MenuView>();
                     if (_parent) return _parent;
                     obj = obj.parent;
@@ -107,7 +110,7 @@ namespace MenuViews
         private static void ChangeCurrentView(Object toMenuType, int layer)
         {
             var currentView = GetCurrentView(layer);
-            if (currentView!=null && currentView.gameObject != toMenuType)
+            if (currentView && currentView.gameObject != toMenuType)
             {
                 if (!LastViews.ContainsKey(layer)) LastViews.Add(layer, currentView);
                 LastViews[layer] = currentView;
@@ -136,6 +139,7 @@ namespace MenuViews
         {
             if(!targetViewType.IsSubclassOf(typeof(MenuView)))
             {
+                // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
                 Debug.LogError($"Type: {targetViewType.Name} is not a menu view.");
                 return;
             }
@@ -147,6 +151,7 @@ namespace MenuViews
                 return;
             }
 
+            // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
             Debug.LogError($"Not found {targetViewType.Name} view.");
         }
 
@@ -176,6 +181,7 @@ namespace MenuViews
         {
             if(!targetViewType.IsSubclassOf(typeof(MenuView)))
             {
+                // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
                 Debug.LogError($"Type: {targetViewType.Name} is not a menu view.");
                 return;
             }
@@ -187,6 +193,7 @@ namespace MenuViews
                 return;
             }
 
+            // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
             Debug.LogError($"Not found {targetViewType.Name} view.");
         }
 
@@ -198,6 +205,7 @@ namespace MenuViews
                 return (TMenuScript) view;
             }
 
+            // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
             Debug.LogError($"Not found {typeof(TMenuScript).Name} view.");
             return null;
         }
