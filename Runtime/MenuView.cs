@@ -61,7 +61,7 @@ namespace MenuViews
             }
         }
 
-        private int Layer => Parent ? Parent.SubLayer : default;
+        public int Layer => Parent ? Parent.SubLayer : default;
 
         private int SubLayer => GetHashCode();
 
