@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 
 // ReSharper disable ReturnTypeCanBeEnumerable.Global
@@ -212,6 +213,20 @@ namespace MenuViews
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         public static void InitMenus()
+        {
+            RescanViews();
+            if(_onChangedSceneEventRegistered) return;
+            _onChangedSceneEventRegistered = true;
+            //we need to know views after scene change
+            SceneManager.activeSceneChanged += (_, _) => RescanViews();
+        }
+
+        /// <summary>
+        /// To prevent editor (SceneManager.activeSceneChanged) caching
+        /// </summary>
+        private static bool _onChangedSceneEventRegistered;
+
+        private static void RescanViews()
         {
             _views = FindObjectsOfType<MenuView>(true);
             foreach (var view in _views) view.Init();
