@@ -218,7 +218,7 @@ namespace MenuViews
             if(_onChangedSceneEventRegistered) return;
             _onChangedSceneEventRegistered = true;
             //we need to know views after scene change
-            SceneManager.activeSceneChanged += (_, _) => RescanViews();
+            SceneManager.activeSceneChanged += (a, b) => RescanViews();
         }
 
         /// <summary>
@@ -228,7 +228,7 @@ namespace MenuViews
 
         private static void RescanViews()
         {
-            _views = FindObjectsOfType<MenuView>(true);
+            _views = Resources.FindObjectsOfTypeAll<MenuView>();
             foreach (var view in _views) view.Init();
             foreach (var view in _views)
                 if (view.Parent == null && view.homePageOfParent)
